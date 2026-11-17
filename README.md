@@ -1,10 +1,36 @@
+<div align="center">
+
 # Orbit
+
+**An editor built from the document model up.**
 
 A focused desktop IDE with a text editor built from scratch. TypeScript, Electron, a piece table, and a real language server. No Monaco or CodeMirror.
 
+![TypeScript](https://img.shields.io/badge/TypeScript-334155?style=flat-square)
+![Electron](https://img.shields.io/badge/Electron-334155?style=flat-square)
+![Node.js](https://img.shields.io/badge/Node.js-334155?style=flat-square)
+
+[Quick start](#quick-start) · [Testing](#testing) · [Current limits and next phases](#current-limits-and-next-phases)
+
+</div>
+
+---
+
 Orbit 0.1 is an early release tested on **Windows x64**. It opens UTF-8 text files up to **1 MiB** and provides language intelligence for JavaScript and TypeScript. See the [supported limits](docs/limitations.md) before using it on your projects.
 
-## Run from source
+## The problem
+
+Editing a file involves more than drawing text. Orbit brings the document model, undo history, file lifecycle, language server and terminal into one desktop workbench so their interactions can be inspected and tested.
+
+## At a glance
+
+| Area | What it covers |
+| --- | --- |
+| Editor core | Piece table, atomic edits and undo/redo |
+| Language intelligence | Completions, diagnostics and navigation through LSP |
+| Desktop workflow | Workspace files, split panes and PTY terminal |
+
+## Quick start
 
 Install **Node.js 24.22.2** (see `.node-version`) and **pnpm 11.25.0** (see `packageManager`), then:
 
@@ -22,7 +48,7 @@ pnpm dev
 
 The first launch creates a writable **Hello Orbit** workspace in the app's user-data directory. Open your own folder with **Ctrl+Shift+O**. This is a desktop app; it does not require a backend, an account, or a cloud service.
 
-## What works in 0.1
+## Highlights
 
 - A custom piece-table document model, atomic edit transactions, up to 500 undo/redo steps, incremental line indexing, and IME input through a native textarea. Large transactions can shorten history to keep its text budget near 32 MiB; discarded additions are compacted.
 - Multi-cursor editing with **Ctrl+D** and **Alt+Click**, indentation, auto-indent, line duplication, and line comments.
@@ -65,7 +91,7 @@ On Windows x64, run `release/Orbit-win32-x64/Orbit.exe`. Keep the entire portabl
 
 The Windows GitHub Actions workflow builds, tests, and uploads the portable application as the **Orbit-windows** artifact. The application includes `resources/app/build-info.json` with its source commit, dirty-worktree flag, runtime and lockfile checksum. Use a clean source checkout for a release candidate. Node 26 is outside the supported build range: its ZIP extraction caused the current packager to exit early during verification.
 
-## Verify
+## Testing
 
 ```sh
 pnpm typecheck
